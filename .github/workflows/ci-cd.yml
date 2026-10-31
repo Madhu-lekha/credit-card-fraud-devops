@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Automated Tests
-        run: pytest -v
+        run: pytest -m pytest -v
 
   docker-build:
     needs: test
