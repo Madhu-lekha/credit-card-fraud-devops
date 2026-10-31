@@ -9,9 +9,15 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
   test:
+    name: Run Python Tests
     runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - name: Checkout Repository
@@ -23,12 +29,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: python -m pip install -r requirements.txt
 
       - name: Run Automated Tests
-        run: pytest -m pytest -v
+        run: python -m pytest -v
 
   docker-build:
+    name: Build Docker Image
     needs: test
     runs-on: ubuntu-latest
 
